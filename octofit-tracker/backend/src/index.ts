@@ -1,6 +1,7 @@
 import dotenv from 'dotenv';
 import express from 'express';
 import mongoose from 'mongoose';
+import { connectToDatabase } from './database';
 
 dotenv.config();
 import usersRouter from './routes/users';
@@ -38,22 +39,9 @@ app.use('/api/activities', activitiesRouter);
 app.use('/api/leaderboard', leaderboardRouter);
 app.use('/api/workouts', workoutsRouter);
 
-async function connectWithRetry(uri: string, retries = 5, delayMs = 2000) {
-  for (let i = 0; i < retries; i++) {
-    try {
-      await mongoose.connect(uri, { serverSelectionTimeoutMS: 5000 });
-      return;
-    } catch (err) {
-      console.warn(`MongoDB connection attempt ${i + 1} failed. Retrying in ${delayMs}ms...`);
-      await new Promise(r => setTimeout(r, delayMs));
-    }
-  }
-  throw new Error('Could not connect to MongoDB after retries');
-}
-
 async function start() {
   try {
-    await connectWithRetry(MONGO_URL);
+    await connectToDatabase(MONGO_URL);
     console.log('Connected to MongoDB at', MONGO_URL);
 
     const publicUrl = CODESPACE_NAME ? `https://${CODESPACE_NAME}-${PORT}.githubpreview.dev` : `http://localhost:${PORT}`;

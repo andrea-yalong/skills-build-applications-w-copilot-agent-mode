@@ -16,7 +16,7 @@ export default function ApiList({ resource, renderItem }) {
   useEffect(() => {
     const codespace = import.meta.env.VITE_CODESPACE_NAME
     const base = codespace ? `https://${codespace}-8000.app.github.dev/api` : `${window.location.protocol}//${window.location.hostname}:8000/api`
-    const url = `${base}/${resource}`
+    const url = `${base}/${resource}/`
 
     setLoading(true)
     fetch(url)

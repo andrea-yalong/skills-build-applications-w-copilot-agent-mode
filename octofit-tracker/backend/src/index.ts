@@ -1,7 +1,7 @@
 import dotenv from 'dotenv';
 import express from 'express';
 import mongoose from 'mongoose';
-import { connectToDatabase } from './database';
+import { connectToDatabase } from './config/database';
 
 dotenv.config();
 import usersRouter from './routes/users';

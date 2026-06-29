@@ -10,13 +10,14 @@
     "seed": "ts-node-dev --respawn --transpile-only src/scripts/seed.ts"
   },
   "dependencies": {
+    "dotenv": "^16.6.1",
     "express": "^5.2.1",
     "mongoose": "^9.7.3"
   },
   "devDependencies": {
-    "typescript": "^6.0.3",
-    "ts-node-dev": "^2.0.0",
+    "@types/express": "^5.0.6",
     "@types/node": "^26.0.1",
-    "@types/express": "^5.0.6"
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^6.0.3"
   }
 }

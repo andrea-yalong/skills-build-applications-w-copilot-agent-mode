@@ -1,14 +1,17 @@
 import { Router } from 'express';
+import Activity from '../models/activity';
 
 const router = Router();
 
-router.get('/', (_req, res) => {
-  res.json({ activities: [] });
+router.get('/', async (_req, res) => {
+  const activities = await Activity.find().lean();
+  res.json(activities);
 });
 
-router.post('/', (req, res) => {
+router.post('/', async (req, res) => {
   const payload = req.body;
-  res.status(201).json({ id: 'activity_1', ...payload });
+  const activity = await Activity.create(payload);
+  res.status(201).json(activity);
 });
 
 export default router;

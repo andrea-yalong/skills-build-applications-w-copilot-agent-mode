@@ -1,14 +1,17 @@
 import { Router } from 'express';
+import User from '../models/user';
 
 const router = Router();
 
-router.get('/', (_req, res) => {
-  res.json({ users: [] });
+router.get('/', async (_req, res) => {
+  const users = await User.find().lean();
+  res.json(users);
 });
 
-router.post('/', (req, res) => {
+router.post('/', async (req, res) => {
   const payload = req.body;
-  res.status(201).json({ id: 'user_1', ...payload });
+  const user = await User.create(payload);
+  res.status(201).json(user);
 });
 
 export default router;

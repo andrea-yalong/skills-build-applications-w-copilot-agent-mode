@@ -1,14 +1,17 @@
 import { Router } from 'express';
+import Team from '../models/team';
 
 const router = Router();
 
-router.get('/', (_req, res) => {
-  res.json({ teams: [] });
+router.get('/', async (_req, res) => {
+  const teams = await Team.find().lean();
+  res.json(teams);
 });
 
-router.post('/', (req, res) => {
+router.post('/', async (req, res) => {
   const payload = req.body;
-  res.status(201).json({ id: 'team_1', ...payload });
+  const team = await Team.create(payload);
+  res.status(201).json(team);
 });
 
 export default router;

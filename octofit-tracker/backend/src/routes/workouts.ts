@@ -1,14 +1,17 @@
 import { Router } from 'express';
+import Workout from '../models/workout';
 
 const router = Router();
 
-router.get('/', (_req, res) => {
-  res.json({ workouts: [] });
+router.get('/', async (_req, res) => {
+  const workouts = await Workout.find().populate('user activity team').lean();
+  res.json(workouts);
 });
 
-router.post('/', (req, res) => {
+router.post('/', async (req, res) => {
   const payload = req.body;
-  res.status(201).json({ id: 'workout_1', ...payload });
+  const workout = await Workout.create(payload);
+  res.status(201).json(workout);
 });
 
 export default router;

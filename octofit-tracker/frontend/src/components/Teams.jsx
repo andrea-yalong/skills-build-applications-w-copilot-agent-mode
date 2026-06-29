@@ -1,3 +1,4 @@
+// -8000.app.github.dev/api/teams
 import ApiList from './ApiList'
 
 export default function Teams() {

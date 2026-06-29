@@ -1,3 +1,4 @@
+// -8000.app.github.dev/api/activities
 import ApiList from './ApiList'
 
 export default function Activities() {
